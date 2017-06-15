@@ -1,0 +1,205 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	
+			
+    <title>
+    ONE PIECE
+    </title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="/css/mic_main.css" />
+    <link rel="stylesheet" href="/css/dropdownMenu.css" />
+    
+    	<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+	
+    <noscript>
+        <link rel="stylesheet" href="/css/noscript.css" />
+    </noscript>
+
+			    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery.scrollex.min.js"></script>
+    <script src="/js/jquery.scrolly.min.js"></script>
+    <script src="/js/skel.min.js"></script>
+    <script src="/js/util.js"></script>
+    <script src="/js/main.js"></script>
+	
+</head>
+    
+		
+<!-- Layouts -->
+
+
+
+<!--  代码渲染  -->
+<link rel="stylesheet" href="/css/prism_okaidia.css" />
+
+<!-- 文章页 -->
+<body class="is-loading">
+    <!-- Wrapper 外包 s-->
+    <div id="wrapper" class="fade-in">
+        <!-- Intro 头部显示 s -->
+        <!-- Intro 头部显示 e -->
+        <!-- Header 头部logo start -->
+        <header id="header">
+    <a href="/" class="logo">ONE PIECE</a>
+</header>
+        <!-- Nav 导航条 start -->
+        <nav id="nav" class="special" >
+            <ul class="menu links" >
+			<!-- Homepage  主页  --> 
+			<li >
+	            <a href="/" rel="nofollow">主页</a>
+	        </li>
+			<!-- categories_name  分类   --> 
+	        
+	        <li class="active">
+	            <a href="#s1">分类</a>
+	                    <ul class="submenu">
+	                        <li>
+	                        
+	                    </ul>
+	        </li>
+	        
+	        <!-- archives  归档   --> 
+	        
+	        <li class="active">
+	            <a href="#s1">归档</a>
+	                    <ul class="submenu">
+	                        <li>
+	                        <a class="archive-link" href="/archives/2017/06/">June 2017</a>
+	                    </ul>
+	        </li>
+	        
+	        
+		        <!-- Pages 自定义   -->
+		        
+
+
+            </ul>
+            <!-- icons 图标   -->
+			<ul class="icons">
+		            
+		            
+		            
+		            
+			</ul>
+</nav>
+
+        <div id="main" >
+            <div class ="post_page_title_img" style="height: 25rem;background-image: url(/images/web-plc.gif);background-position: center; background-repeat:no-repeat; background-size:cover;-moz-background-size:cover;overflow:hidden;" >
+                <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2>Web页面作为上位机与倍福PLC通讯</h2></a>
+            </div>
+            <!-- Post -->
+            <div class="post-content" >
+                <p>Web页面作为众多上位机的不常用的一种，主要是因为Web主要应用于互联网。但随着技术的进步，Web页面可以在比较短的时间内作出炫丽的人机操作界面。而且跨平台（Android，ios，Linux，Windows），只要装有浏览器，都可以进行访问。既然有着如此好的特点，那么结合官网的说明来详细讲一下配置问题。</p>
+<h2 id="第一步，需要准备的东西"><a href="#第一步，需要准备的东西" class="headerlink" title="第一步，需要准备的东西"></a>第一步，需要准备的东西</h2><p>1、TwinCAT 3 完整版（这会将ADS也一并安装），安装完后会生成后面会用到的文件。如下：<br>a、TcAdsWebService.dll<br>b、TcAdsSoap.dll<br>c、TcAdsWebService.WSDL<br>这三个文件的存放目录为“C:\TwinCAT\AdsApi\TcAdsWebService\V100\xp\”<br>2、TF6310-TCP-IP.exe<br>3、IIS（Windows系统自带）<br>4、TcAdsWebService.js_Sample03（当然也可以用其他例子来试验，更可以自己写）</p>
+<h2 id="第二步，配置"><a href="#第二步，配置" class="headerlink" title="第二步，配置"></a>第二步，配置</h2><h3 id="1、配置IIS"><a href="#1、配置IIS" class="headerlink" title="1、配置IIS"></a>1、配置IIS</h3><p>1、步骤一<br>点击开始→控制面板→程序→打开和关闭windows功能，然后将Internet信息服务勾上，勾上后不是所有的子选项都被勾选，此处需要将Internet信息服务→万维网服务→应用程序开发功能→ISAPI扩展和ISAPI筛选器勾上，点击确定。可能需要等1分钟，请耐心。<br>2、步骤二<br>a、安装好后打开控制面板→系统和安全→管理工具→internet信息服务（IIS）管理器。<br>b、点击左边的倒三角，就会看到网站下面的default web site，右击default web site<br>c、选择添加虚拟目录<br>d、别名：TcAdsWebService，物理路径：C:\TwinCAT\AdsApi\TcAdsWebService\100\xp,点击确定<br>e、双击身份验证，选择匿名身份验证，点击编辑，选择应用程序池标识。<br>f、选择新建的虚拟目录，双击处理程序映射，进去后右键选择编辑功能权限，将执行勾上。<br>g、选择应用池上面的根节点（和你的电脑名字一样），双击ISAPI和CGI限制，右键菜单选择添加，ISAPI或CGI路径为：C:\TwinCAT\AdsApi\TcAdsWebService\100\xp\TcAdsWebService.dll，并勾选允许执行扩展路径。<br>h、右键选择default web site→管理网站→重新启动。<br>i、如果你的电脑为64位，需要多做一步设置，右键应用程序池→右键默认的应用程序池→高级设置→使能32位应用程序为true。<br>3、步骤三<br>测试TWINCAT ADS Webservice configuration<br><a href="http:///tcadswebservice/tcadswebservice.dll" target="_blank" rel="external">http:///tcadswebservice/tcadswebservice.dll</a><br>例如：<br><a href="http://192.168.0.1/tcadswebservice/tcadswebservice.dll" target="_blank" rel="external">http://192.168.0.1/tcadswebservice/tcadswebservice.dll</a><br><a href="http://localhost/tcadswebservice/tcadswebservice.dll" target="_blank" rel="external">http://localhost/tcadswebservice/tcadswebservice.dll</a><br>如果网站返回包含port和NetID的信息则配置成功。</p>
+<h3 id="2、运行"><a href="#2、运行" class="headerlink" title="2、运行"></a>2、运行</h3><p>a、打开TcAdsWebService.js_Sample03这个例子并运行。<br>b、将TcAdsWebService.js_Sample03中的Default.htm、StyleSheet.css、TcAdsWebService.js复制到C:\TwinCAT\AdsApi\TcAdsWebService\100\xp文件夹里面。<br>c、打开浏览器输入<a href="http://localhost/tcadswebservice/" target="_blank" rel="external">http://localhost/tcadswebservice/</a> 即可。其他连上你局域网的电脑，手机，Pad等都可以打开浏览器输入上述网址。</p>
+
+             </div>
+
+            <!-- Post Comments -->
+            
+    <!-- 使用 DISQUS_CLICK -->
+<div id="disqus-comment">
+    <div id="disqus_thread"></div>
+
+<!-- add animation -->
+<style>
+	.disqus_click_btn {
+            line-height: 30px;
+            margin: 0;
+            min-width: 50px;
+            padding: 0 14px;
+            display: inline-block;
+            font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+            font-size: 14px;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 0;
+            overflow: hidden;
+            will-change: box-shadow;
+            transition: box-shadow .2s cubic-bezier(.4, 0, 1, 1), background-color .2s cubic-bezier(.4, 0, .2, 1), color .2s cubic-bezier(.4, 0, .2, 1);
+            outline: 0;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+            vertical-align: middle;
+            border: 0;
+            background: rgba(158, 158, 158, .2);
+            box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .2), 0 1px 5px 0 rgba(0, 0, 0, .12);
+            color: #fff;
+            background-color: #7EC0EE;
+            text-shadow: 0
+        }
+</style>
+	
+<div class="btn_click_load" id="disqus_bt"> 
+    <button class="disqus_click_btn">点击查看评论</button>
+</div>
+
+<!--
+<script type="text/javascript">
+$('.btn_click_load').click(function() {
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'null'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+
+    document.getElementById('disqus_bt').style.display = "none";
+});
+</script>
+-->
+<script type="text/javascript">
+    var disqus_config = function () {
+        this.page.url = 'https://tobluesky.github.io/2017/06/05/web-plc/';  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = 'https://tobluesky.github.io/2017/06/05/web-plc/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+</script>
+
+<script type="text/javascript">
+    $('.btn_click_load').click(function() {  //click to load comments
+        (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document;
+            var s = d.createElement('script');
+            s.src = '//null.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', + new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+        $('.btn_click_load').css('display','none');
+    });
+</script>
+</div>
+<style>
+    #disqus-comment{
+        background-color: #eee;
+        padding: 2pc;
+    }
+</style>
+
+
+        </div>
+        <!-- Copyright 版权 start -->
+                <div id="copyright">
+            <ul>
+                <li>&copy;Powered By <a href="https://hexo.io/zh-cn/" style="border-bottom: none;">hexo</a></li>
+                <li>Design: <a href="http://miccall.tech " style="border-bottom: none;">miccall</a></li>
+            </ul>
+            
+            	<span id="busuanzi_container_site_pv">2017总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+			
+        </div>
+    </div>
+</body>
+
+
+
+ 	
+</html>
